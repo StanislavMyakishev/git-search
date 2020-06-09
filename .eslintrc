@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "react-app",
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "rules": {
+    "jsx-quotes": [
+      1,
+      "prefer-double"
+    ],
+    "no-console": "error",
+    "simple-import-sort/sort": "error"
+  },
+  "plugins": [
+    "prettier",
+    "@typescript-eslint",
+    "eslint-plugin-decorators",
+    "simple-import-sort"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": ".",
+    "experimentalDecorators": true
+  },
+  "ignorePatterns": ["front/node_modules/", "node_modules/"],
+  "parser": "@typescript-eslint/parser"
+}
