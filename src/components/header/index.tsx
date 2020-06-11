@@ -2,8 +2,9 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
-    background-color: #fafbfc !important;
-    border-bottom: 1px solid #e1e4e8 !important;
+    background-color: ${({ theme }) => `${theme.colors.lightGray} !important`};
+    border-bottom: ${({ theme }) =>
+        `1px solid ${theme.colors.lightGrayBorder} !important`};
 `;
 
 const StyledHeader = styled.div`
@@ -12,11 +13,13 @@ const StyledHeader = styled.div`
     max-width: 1012px;
     margin: 0 auto;
 
-    @media only screen and (min-width: 544px) {
+    @media only screen and (max-width: ${({ theme }) =>
+            `${theme.breakpoints.forPhoneOnly}px`}) {
         padding-right: 40px !important;
         padding-left: 40px !important;
     }
-    @media only screen and (min-width: 1012px) {
+    @media only screen and (min-width: ${({ theme }) =>
+            `${theme.breakpoints.forTabletPortraitUp}px`}) {
         padding-right: 16px !important;
         padding-left: 16px !important;
     }
@@ -24,7 +27,7 @@ const StyledHeader = styled.div`
 
 const HelperText = styled.p`
     margin: 0 auto;
-    color: #586069 !important;
+    color: ${(props) => `${props.theme.colors.lightGrayText}!important`};
     font-size: 16px !important;
     @media (min-width: 768px) {
         width: 50%;

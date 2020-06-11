@@ -4,7 +4,9 @@ import { ApolloClient } from 'apollo-client';
 import { History } from 'history';
 import * as React from 'react';
 import { Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 
+import theme from './common/theme';
 import Routes from './routes';
 
 interface MainProps<TCache> {
@@ -19,7 +21,9 @@ const Main: React.FC<MainProps<NormalizedCacheObject>> = ({
     return (
         <ApolloProvider client={client}>
             <Router history={history}>
-                <Routes />
+                <ThemeProvider theme={theme}>
+                    <Routes />
+                </ThemeProvider>
             </Router>
         </ApolloProvider>
     );

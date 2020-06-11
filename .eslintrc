@@ -13,7 +13,13 @@
       "prefer-double"
     ],
     "no-console": "error",
-    "simple-import-sort/sort": "error"
+    "simple-import-sort/sort": "error",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ]
   },
   "plugins": [
     "prettier",

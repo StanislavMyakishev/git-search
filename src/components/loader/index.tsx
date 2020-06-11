@@ -9,7 +9,7 @@ const LoaderOverlay = styled.div`
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.white}};
 `;
 
 const LoaderWrapper = styled.div`
