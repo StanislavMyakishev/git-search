@@ -2,12 +2,12 @@ import 'styled-components';
 
 import { ThemeBreakpoints } from './breakpoints';
 import { ThemeColors } from './colors';
-import { ThemeFontSizes } from './fontSizes';
+import { ThemeSpacing } from './spacing';
 
 declare module 'styled-components' {
     export interface DefaultTheme {
         colors: ThemeColors;
-        fontSizes: ThemeFontSizes;
+        spacing: ThemeSpacing;
         breakpoints: ThemeBreakpoints;
     }
 }

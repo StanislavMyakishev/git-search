@@ -44,7 +44,7 @@ const CustomTextInput = styled.input`
     height: 34px;
     border: ${({ theme }) => `1px solid ${theme.colors.lightGrayBorder}`};
     outline: none;
-    font-size: ${({ theme }) => theme.fontSizes.small};
+    font-size: ${({ theme }) => theme.spacing.small};
     width: 100%;
     box-sizing: border-box;
 

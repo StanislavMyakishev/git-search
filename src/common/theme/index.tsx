@@ -2,14 +2,14 @@ import { DefaultTheme } from 'styled-components';
 
 import { breakpoints } from './breakpoints';
 import { colors } from './colors';
-import { fontSizes } from './fontSizes';
+import { spacing } from './spacing';
 
 const theme: DefaultTheme = {
     colors: {
         ...colors,
     },
-    fontSizes: {
-        ...fontSizes,
+    spacing: {
+        ...spacing,
     },
     breakpoints: {
         ...breakpoints,

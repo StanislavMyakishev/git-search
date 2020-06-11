@@ -3,6 +3,7 @@ import React from 'react';
 
 import Footer from '../../components/footer';
 import Header from '../../components/header';
+import SearchContent from '../../components/searchContent/content';
 import SearchInput from '../../components/searchInput';
 
 interface AllProps {
@@ -15,6 +16,7 @@ class SearchPage extends React.Component<AllProps> {
             <div>
                 <Header />
                 <SearchInput />
+                <SearchContent />
                 <Footer />
             </div>
         );

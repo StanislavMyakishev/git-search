@@ -2,19 +2,19 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { NormalizedCacheObject } from 'apollo-boost';
 import { ApolloClient } from 'apollo-client';
 import { History } from 'history';
-import * as React from 'react';
+import React from 'react';
 import { Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import theme from './common/theme';
 import Routes from './routes';
 
-interface MainProps<TCache> {
+interface AllProps<TCache> {
     client: ApolloClient<TCache>;
     history: History;
 }
 
-const Main: React.FC<MainProps<NormalizedCacheObject>> = ({
+const Main: React.FC<AllProps<NormalizedCacheObject>> = ({
     client,
     history,
 }) => {
