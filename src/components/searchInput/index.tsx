@@ -78,7 +78,7 @@ const SearchInput = ({
             <CenterWrapper>
                 <CustomTextInput
                     autoFocus
-                    type="text"
+                    type="search"
                     onChange={updateSearchInput}
                     value={inputValue}
                 />
