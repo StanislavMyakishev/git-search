@@ -6,8 +6,8 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import theme from './common/theme';
 import Routes from './routes';
+import theme from './theme';
 
 interface AllProps<TCache> {
     client: ApolloClient<TCache>;

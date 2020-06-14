@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const SettingsWrapper = styled.div`
@@ -12,8 +12,16 @@ const SettingsWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.grayBackground};
 `;
 
-const SettingsToolbar: React.FC = () => {
-    return <SettingsWrapper>content</SettingsWrapper>;
+interface SettingsToolbarProps {
+    repositoryCount: number;
+}
+
+const SettingsToolbar = ({
+    repositoryCount,
+}: SettingsToolbarProps): ReactElement => {
+    return (
+        <SettingsWrapper>{repositoryCount} repository results</SettingsWrapper>
+    );
 };
 
 export default SettingsToolbar;

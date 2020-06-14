@@ -1,26 +1,26 @@
-import { History, LocationState } from 'history';
-import React from 'react';
+import React, { memo, ReactElement, useState } from 'react';
 
-import Footer from '../../components/footer';
 import Header from '../../components/header';
-import SearchContent from '../../components/searchContent/content';
+import SearchContent from '../../components/searchContent';
 import SearchInput from '../../components/searchInput';
 
-interface AllProps {
-    history: History<LocationState>;
-}
+const SearchPage = (): ReactElement => {
+    const [inputValue, setInputValue] = useState('chess');
 
-class SearchPage extends React.Component<AllProps> {
-    render(): React.ReactElement {
-        return (
-            <div>
-                <Header />
-                <SearchInput />
-                <SearchContent />
-                <Footer />
-            </div>
-        );
-    }
-}
+    const updateSearchInput = (e: React.FormEvent<HTMLInputElement>): void => {
+        setInputValue(e.currentTarget.value);
+    };
 
-export default SearchPage;
+    return (
+        <>
+            <Header />
+            <SearchInput
+                inputValue={inputValue}
+                updateSearchInput={updateSearchInput}
+            />
+            <SearchContent searchQuery={inputValue} />
+        </>
+    );
+};
+
+export default memo(SearchPage);

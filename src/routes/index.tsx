@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import routes from './common/routerConstants';
-import NotFound from './pages/notFound';
-import SearchPage from './pages/searchPage';
+import NotFound from '../pages/notFound';
+import SearchPage from '../pages/searchPage';
+import routes from './routerConstants';
 
 const Routes = (): ReactElement => (
     <>

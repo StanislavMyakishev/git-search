@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { ReactComponent as ForkLogo } from './assets/fork.svg';
@@ -50,7 +50,6 @@ const RepositoryName = styled.a`
     }
 
     &:hover {
-        fill: ${({ theme }) => theme.colors.darkBlue};
         text-decoration: underline;
         cursor: pointer;
     }
@@ -69,6 +68,7 @@ const RepositoryInfo = styled.div`
 
 const RepositoryInlineInfo = styled.span`
     display: inline-block !important;
+    margin-top: ${({ theme }) => theme.spacing.extraSmall};
     margin-right: ${({ theme }) => theme.spacing.small};
     margin-left: 0 !important;
     font-size: ${({ theme }) => theme.spacing.subSmall};
@@ -81,11 +81,11 @@ const RepositoryLangColor = styled.span`
     width: ${({ theme }) => theme.spacing.subSmall};
     height: ${({ theme }) => theme.spacing.subSmall};
     border-radius: 50%;
-    background-color: #da5b0b;
     margin-right: 6px;
 `;
 
 const BaseRepositoryLink = styled.a`
+    color: ${({ theme }) => theme.colors.lightGrayText};
     display: inline-block !important;
     text-decoration: none;
 
@@ -118,73 +118,83 @@ const UserAvatarImage = styled.img`
     border-radius: 3px;
 `;
 
-const StarsToday = styled.span`
-    display: inline-block !important;
-    margin-top: 10px !important;
+interface LanguageInfo {
+    langColor: string | null;
+    langName: string | null;
+}
 
-    svg {
-        vertical-align: text-bottom;
-        margin-right: 6px !important;
-        overflow: hidden;
-    }
+interface UserInfo {
+    userUrl: string;
+    avatarUrl: string;
+}
 
-    @media (min-width: ${({ theme }) =>
-            `${theme.breakpoints.forPhoneOnly}px`}) {
-        float: right !important;
-        margin-top: 0 !important;
-    }
-`;
+interface RepositoryItemProps {
+    repoName: string;
+    repoOwner: string;
+    repoUrl: string;
+    description: string;
+    stars: number;
+    forks: number;
+    language: LanguageInfo;
+    mentionableUsers: UserInfo[];
+}
 
-const RepositoryItem: React.FC = () => {
+const RepositoryItem = ({
+    repoName,
+    repoOwner,
+    repoUrl,
+    description,
+    language,
+    stars,
+    forks,
+    mentionableUsers,
+}: RepositoryItemProps): ReactElement => {
+    const { langColor, langName } = language;
+    const stargazersLink = `https://github.com/${repoOwner}/${repoName}/stargazers`;
+    const forkLink = `https://github.com/${repoOwner}/${repoName}/network/members.${repoName}`;
+
     return (
         <Article>
             <RepositoryHeader>
-                <RepositoryName>
+                <RepositoryName href={repoUrl} target="_blank">
                     <RepoLogo />
-                    <span>ultralytics / </span>
-                    yolov5
+                    <span>{repoName} / </span>
+                    {repoOwner}
                 </RepositoryName>
-                <RepositoryDescription>
-                    YOLOv5 in PyTorch > ONNX > CoreML > iOS
-                </RepositoryDescription>
+                <RepositoryDescription>{description}</RepositoryDescription>
                 <RepositoryInfo>
-                    <RepositoryInlineInfo>
-                        <RepositoryLangColor />
-                        <span>TypeScript</span>
-                    </RepositoryInlineInfo>
-                    <RepositoryInfoLink>
+                    {langColor && (
+                        <RepositoryInlineInfo>
+                            <RepositoryLangColor
+                                style={{ backgroundColor: langColor }}
+                            />
+                            <span>{langName}</span>
+                        </RepositoryInlineInfo>
+                    )}
+                    <RepositoryInfoLink href={stargazersLink} target="_blank">
                         <StarLogo />
-                        888
+                        {stars}
                     </RepositoryInfoLink>
-                    <RepositoryInfoLink>
+                    <RepositoryInfoLink href={forkLink} target="_blank">
                         <ForkLogo />
-                        144
+                        {forks}
                     </RepositoryInfoLink>
                     <RepositoryInlineInfo>
                         Built by
-                        <BaseRepositoryLink>
-                            <UserAvatarImage
-                                src={
-                                    'https://avatars1.githubusercontent.com/u/26833433?s=40&v=4'
-                                }
-                            />
-                        </BaseRepositoryLink>
-                        <BaseRepositoryLink>
-                            <UserAvatarImage
-                                src={
-                                    'https://avatars3.githubusercontent.com/u/466713?s=40&v=4'
-                                }
-                            />
-                        </BaseRepositoryLink>
+                        {mentionableUsers.map((user) => (
+                            <BaseRepositoryLink
+                                key={user.userUrl}
+                                href={user.userUrl}
+                                target="_blank"
+                            >
+                                <UserAvatarImage src={user.avatarUrl} />
+                            </BaseRepositoryLink>
+                        ))}
                     </RepositoryInlineInfo>
-                    <StarsToday>
-                        <StarLogo />
-                        374 stars today
-                    </StarsToday>
                 </RepositoryInfo>
             </RepositoryHeader>
         </Article>
     );
 };
 
-export default RepositoryItem;
+export default memo(RepositoryItem);

@@ -1,18 +1,11 @@
-import { History, LocationState } from 'history';
-import React from 'react';
+import React, { memo, ReactElement } from 'react';
 
-interface AllProps {
-    history: History<LocationState>;
-}
+const NotFound = (): ReactElement => {
+    return (
+        <div>
+            <h1>Page not found</h1>
+        </div>
+    );
+};
 
-class NotFound extends React.Component<AllProps> {
-    render(): React.ReactElement {
-        return (
-            <div>
-                <h1>Page not found</h1>
-            </div>
-        );
-    }
-}
-
-export default NotFound;
+export default memo(NotFound);

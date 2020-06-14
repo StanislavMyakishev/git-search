@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
 const InputWrapper = styled.div`
@@ -57,13 +57,15 @@ const CustomTextInput = styled.input`
     }
 `;
 
-export default function SearchInput(): ReactElement {
-    const [inputValue, setInputValue] = useState('');
+interface SearchInputProps {
+    inputValue: string;
+    updateSearchInput: (e: React.FormEvent<HTMLInputElement>) => void;
+}
 
-    const updateSearchInput = (e: React.FormEvent<HTMLInputElement>): void => {
-        setInputValue(e.currentTarget.value);
-    };
-
+const SearchInput = ({
+    inputValue,
+    updateSearchInput,
+}: SearchInputProps): ReactElement => {
     return (
         <InputWrapper>
             <CenterWrapper>
@@ -76,4 +78,6 @@ export default function SearchInput(): ReactElement {
             </CenterWrapper>
         </InputWrapper>
     );
-}
+};
+
+export default memo(SearchInput);
