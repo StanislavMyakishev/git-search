@@ -33,7 +33,7 @@ const RepositoryDescription = styled.p`
 `;
 
 const RepositoryName = styled.a`
-    color: ${({ theme }) => theme.colors.darkBlue};
+    color: ${({ theme }) => theme.colors.dark};
     background-color: initial;
     font-weight: 600 !important;
     text-decoration: none;
@@ -96,8 +96,8 @@ const BaseRepositoryLink = styled.a`
     }
 
     &:hover {
-        fill: ${({ theme }) => theme.colors.darkBlue};
-        color: ${({ theme }) => theme.colors.darkBlue};
+        fill: ${({ theme }) => theme.colors.dark};
+        color: ${({ theme }) => theme.colors.dark};
         cursor: pointer;
     }
 `;

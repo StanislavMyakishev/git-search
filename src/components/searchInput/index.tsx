@@ -2,8 +2,15 @@ import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
 const InputWrapper = styled.div`
-    height: 60px;
-    position: relative;
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: ${({ theme }) => `${theme.colors.white}`};
+    border: ${({ theme }) => `1px solid ${theme.colors.lightGrayBorder}`};
+    height: ${({ theme }) =>
+        `calc(${theme.spacing.ultraLarge} + 2 * ${theme.spacing.extraSmall})`};
+    padding: ${({ theme }) => `${theme.spacing.extraSmall} 0`};
 `;
 
 const CenterWrapper = styled.div`
@@ -41,7 +48,7 @@ const CustomTextInput = styled.input`
     border-radius: 20px;
     display: block;
     margin: 0;
-    height: 34px;
+    height: ${({ theme }) => `${theme.spacing.ultraLarge}`};
     border: ${({ theme }) => `1px solid ${theme.colors.lightGrayBorder}`};
     outline: none;
     font-size: ${({ theme }) => theme.spacing.small};
@@ -53,7 +60,7 @@ const CustomTextInput = styled.input`
     }
 
     &:focus {
-        border-color: ${({ theme }) => theme.colors.blue};
+        border-color: ${({ theme }) => theme.colors.primary};
     }
 `;
 
@@ -72,7 +79,7 @@ const SearchInput = ({
                 <CustomTextInput
                     autoFocus
                     type="text"
-                    onChange={(e) => updateSearchInput(e)}
+                    onChange={updateSearchInput}
                     value={inputValue}
                 />
             </CenterWrapper>

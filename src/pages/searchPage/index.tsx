@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { memo, ReactElement, useState } from 'react';
 
-import Header from '../../components/header';
+import ScrollUpButton from '../../components/scrollUpButton';
 import SearchInput from '../../components/searchInput';
 import SearchList from '../../components/searchList';
 import { SearchType } from '../../schema/generated';
@@ -19,7 +19,6 @@ const SearchPage = (): ReactElement => {
 
     return (
         <>
-            <Header />
             <SearchInput
                 inputValue={inputValue}
                 updateSearchInput={updateSearchInput}
@@ -29,6 +28,7 @@ const SearchPage = (): ReactElement => {
                 type={SearchType.Repository}
                 first={10}
             />
+            <ScrollUpButton />
         </>
     );
 };

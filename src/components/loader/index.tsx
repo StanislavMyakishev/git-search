@@ -13,7 +13,7 @@ const LoaderOverlay = styled.div`
 `;
 
 const LoaderWrapper = styled.div`
-    min-height: 300px;
+    min-height: 128px;
     height: 100%;
     display: flex;
     justify-content: center;

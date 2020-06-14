@@ -2,6 +2,11 @@ import _ from 'lodash';
 import React, { memo, ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
 
+import {
+    getClientHeight,
+    getDocumentScrollHeight,
+    getDocumentScrollTop,
+} from '../../common';
 import useSearch from '../../hooks/useSearch';
 import {
     QuerySearchArgs,
@@ -11,10 +16,25 @@ import {
 import Loader from '../loader';
 import RepositoryItem from '../repositoryItem';
 import SettingsToolbar from '../settingsToolbar';
-import Wrapper from '../wrapper';
 
-const StyledWrapper = styled(Wrapper)`
-    padding: ${({ theme }) => `0 ${theme.spacing.small}!important`};
+const StyledWrapper = styled.div`
+    padding: ${({ theme }) =>
+        `calc(${theme.spacing.ultraLarge} + 2 * ${theme.spacing.extraSmall}) ${theme.spacing.small}!important`};
+    max-width: 1012px;
+    margin: 0 auto;
+
+    @media only screen and (max-width: ${({ theme }) =>
+            `${theme.breakpoints.forPhoneOnly}px`}) {
+        padding-right: ${({ theme }) => `${theme.spacing.small} !important`};
+        padding-left: ${({ theme }) => `${theme.spacing.small} !important`};
+    }
+    @media only screen and (min-width: ${({ theme }) =>
+            `${theme.breakpoints.forTabletPortraitUp}px`}) {
+        padding-right: ${({ theme }) =>
+            `${theme.spacing.ultraLarge} !important`};
+        padding-left: ${({ theme }) =>
+            `${theme.spacing.ultraLarge} !important`};
+    }
 `;
 
 const ContentWrapper = styled.div`
@@ -30,24 +50,28 @@ const SearchList = ({ query, type, first }: QuerySearchArgs): ReactElement => {
         first,
     });
 
-    const isLoadingMore = loading && !search;
-    const isLoadingNewQuery = loading && search;
+    const isLoadingMore = loading && search;
+    const isLoadingNewQuery = loading && !search;
 
-    const scrollHandler = _.throttle(() => {
+    const scrollHandler = (): void => {
+        const scrollTop = getDocumentScrollTop(),
+            scrollHeight = getDocumentScrollHeight(),
+            clientHeight = getClientHeight();
         const isBottomReached =
-            document.body.offsetHeight - window.innerHeight - window.scrollY <
-            300;
-        if (isBottomReached && hasNextPage && loadMore) {
+            Math.ceil(scrollTop + clientHeight) >= scrollHeight - 400;
+        if (isBottomReached && !loading && hasNextPage && loadMore) {
             loadMore();
         }
-    }, 1000);
+    };
+
+    const wrappedScrollHandler = _.throttle(scrollHandler, 500);
 
     useEffect(() => {
-        window.addEventListener('scroll', scrollHandler);
+        window.addEventListener('scroll', wrappedScrollHandler);
         return () => {
-            window.removeEventListener('scroll', scrollHandler);
+            window.removeEventListener('scroll', wrappedScrollHandler);
         };
-    }, [search, scrollHandler]);
+    }, [search, wrappedScrollHandler]);
 
     const reposList = (data: SearchResult): ReactElement[] | null =>
         data.nodes

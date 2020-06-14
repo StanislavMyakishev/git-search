@@ -43,8 +43,7 @@ function useSearch({ query, type, first }: QuerySearchArgs): UseSearch {
                 const pageInfo = fetchMoreResult
                     ? fetchMoreResult.search.pageInfo
                     : null;
-
-                return newEdges && newEdges.length
+                return newEdges
                     ? {
                           search: {
                               __typename: previousResult.search.__typename,

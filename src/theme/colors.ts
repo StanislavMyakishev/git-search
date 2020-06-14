@@ -6,8 +6,9 @@ export interface ThemeColors {
     lightGrayText: string;
     grayBackground: string;
     grayBorder: string;
-    darkBlue: string;
-    blue: string;
+    primary: string;
+    dark: string;
+    light: string;
 }
 
 export const colors: ThemeColors = {
@@ -18,6 +19,7 @@ export const colors: ThemeColors = {
     lightGrayText: '#586069',
     grayBackground: '#f6f8fa',
     grayBorder: '#b9b9b9',
-    darkBlue: '#0366d6',
-    blue: '#0265d6',
+    primary: '#0265d6',
+    dark: '#0366d6',
+    light: '#58a5f0',
 };
