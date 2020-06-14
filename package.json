@@ -58,9 +58,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "precommit": "npm run prettier && npm run lint-staged && git add .",
     "prettier": "prettier --write '*/**/*.{ts,tsx,js}'",
-    "lint-staged": "tsc --noEmit && eslint '*/**/*.{ts,tsx,js}' --max-warnings=0 --fix",
+    "lint-staged": "tsc --noEmit && eslint 'src/*/**/*.{ts,tsx,js}' --max-warnings=0 --fix",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
