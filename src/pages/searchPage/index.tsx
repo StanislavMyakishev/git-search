@@ -7,8 +7,8 @@ import SearchList from '../../components/searchList';
 import { SearchType } from '../../schema/generated';
 
 const SearchPage = (): ReactElement => {
-    const [inputValue, setInputValue] = useState('chess');
-    const [searchValue, setSearchValue] = useState('chess');
+    const [inputValue, setInputValue] = useState('');
+    const [searchValue, setSearchValue] = useState('');
 
     const debouncedSetSearchValue = _.debounce(setSearchValue, 500);
 

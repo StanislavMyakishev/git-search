@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { getDocumentScrollTop } from '../../common';
+import { getDocumentScrollTop } from '../../common/helpers';
 
 const StyledButton = styled.button`
     position: fixed;

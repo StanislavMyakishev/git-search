@@ -15,7 +15,7 @@ const searchLoading = {
 interface UseSearch {
     search: SearchResult;
     hasNextPage?: boolean;
-    loading: boolean;
+    loading?: boolean;
     error?: ApolloError;
     loadMore?: () => Promise<ApolloQueryResult<Query>>;
 }
@@ -27,6 +27,8 @@ function useSearch({ query, type, first }: QuerySearchArgs): UseSearch {
     });
 
     if (loading && !data) return { loading, search: searchLoading };
+
+    if (error && !data) return { error, search: searchLoading };
 
     const loadMore = (): Promise<ApolloQueryResult<Query>> => {
         return fetchMore({

@@ -1,6 +1,9 @@
+import { History, LocationState } from 'history';
 import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
+import Button from '../../components/button';
+import routes from '../../routes/routerConstants';
 import PagePicture from './assets/404.webp';
 
 const StyledWrapper = styled.div`
@@ -68,28 +71,6 @@ const StyledHeader = styled.h1`
     }
 `;
 
-const StyledButton = styled.button`
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: ${({ theme }) => `1px solid ${theme.colors.black}`};
-    margin-top: ${({ theme }) => theme.spacing.medium};
-    color: ${({ theme }) => theme.colors.white};
-    padding: 15px 32px;
-    border-radius: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: ${({ theme }) => theme.spacing.medium};
-
-    &:focus {
-        outline: 0;
-    }
-
-    &:hover {
-        cursor: pointer;
-        background-color: ${({ theme }) => theme.colors.light};
-    }
-`;
-
 const StyledImage = styled.img`
     height: 40vh;
     vertical-align: middle;
@@ -102,7 +83,15 @@ const StyledImage = styled.img`
     }
 `;
 
-const NotFound = (): ReactElement => {
+interface AllProps {
+    history: History<LocationState>;
+}
+
+const NotFound = ({ history }: AllProps): ReactElement => {
+    const handleGoToRoot = (): void => {
+        history.push(routes.root);
+    };
+
     return (
         <StyledWrapper>
             <StyledContent>
@@ -113,7 +102,7 @@ const NotFound = (): ReactElement => {
                     <StyledHeader>404</StyledHeader>
                     <h1>Just slowly go home!</h1>
                     <h2>You saw nothing...</h2>
-                    <StyledButton>Go back</StyledButton>
+                    <Button onClickHandler={handleGoToRoot}>Go back</Button>
                 </StyledContentText>
             </StyledContent>
         </StyledWrapper>

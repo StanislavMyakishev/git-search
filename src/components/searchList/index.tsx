@@ -6,13 +6,14 @@ import {
     getClientHeight,
     getDocumentScrollHeight,
     getDocumentScrollTop,
-} from '../../common';
+} from '../../common/helpers';
 import useSearch from '../../hooks/useSearch';
 import {
     QuerySearchArgs,
     Repository,
     SearchResult,
 } from '../../schema/generated';
+import ErrorMessage from '../errorMessage';
 import Loader from '../loader';
 import RepositoryItem from '../repositoryItem';
 import SettingsToolbar from '../settingsToolbar';
@@ -44,7 +45,7 @@ const ContentWrapper = styled.div`
 `;
 
 const SearchList = ({ query, type, first }: QuerySearchArgs): ReactElement => {
-    const { search, loading, loadMore, hasNextPage } = useSearch({
+    const { search, error, loading, loadMore, hasNextPage } = useSearch({
         query,
         type,
         first,
@@ -72,6 +73,8 @@ const SearchList = ({ query, type, first }: QuerySearchArgs): ReactElement => {
             window.removeEventListener('scroll', wrappedScrollHandler);
         };
     }, [search, wrappedScrollHandler]);
+
+    if (error) return <ErrorMessage />;
 
     const reposList = (data: SearchResult): ReactElement[] | null =>
         data.nodes
