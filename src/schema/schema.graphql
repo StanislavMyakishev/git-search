@@ -1,0 +1,77 @@
+schema {
+    query: Query
+}
+
+enum SearchType {
+    REPOSITORY
+}
+
+type Query {
+    search(query: String!, after: String, type: SearchType!, first: Int!): SearchResult!
+}
+
+type Repository {
+    name: String!
+    owner: RepositoryOwner!
+    description: String!
+    stargazers: Stargazers!
+    forks: Forks!
+    url: String!
+    mentionableUsers(first: Int!): UserConnection!
+    languages(first: Int!): LanguageConnection!
+}
+
+type SearchResult {
+    pageInfo: PageInfo
+    repositoryCount: Int!
+    nodes: [Repository!]
+}
+
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+    startCursor: String!
+    endCursor: String!
+}
+
+interface CountableNode {
+    totalCount: Int!
+}
+
+type RepositoryOwner {
+    login: String!
+}
+
+type UserConnection {
+    edges: [UserEdge!]!
+}
+
+type UserEdge {
+    node: User!
+}
+
+type User {
+    url: String!
+    avatarUrl: String!
+}
+
+type LanguageConnection {
+    edges: [LanguageEdge!]!
+}
+
+type LanguageEdge {
+    node: Language!
+}
+
+type Language {
+    color: String!
+    name: String!
+}
+
+type Stargazers implements CountableNode {
+    totalCount: Int!
+}
+
+type Forks implements CountableNode {
+    totalCount: Int!
+}

@@ -5,10 +5,12 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@types/history": "^4.7.6",
+    "@types/lodash": "^4.14.155",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
     "apollo-boost": "^0.4.9",
     "graphql": "^15.1.0",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",

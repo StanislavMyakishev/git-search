@@ -1,11 +1,8 @@
 overwrite: true
-schema: "https://api.github.com/graphql"
+schema: "src/schema/schema.graphql"
 generates:
-  src/generated/graphql.tsx:
+  src/schema/generated/index.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"

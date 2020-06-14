@@ -1,18 +1,13 @@
 import { gql } from 'apollo-boost';
 
 export const GET_SEARCH_RESULTS = gql`
-    query($searchQuery: String!, $cursor: String) {
-        search(
-            query: $searchQuery
-            type: REPOSITORY
-            first: 10
-            after: $cursor
-        ) {
+    query($query: String!, $cursor: String, $type: SearchType!, $first: Int!) {
+        search(query: $query, type: $type, first: $first, after: $cursor) {
             __typename
             pageInfo {
+                hasNextPage
                 hasPreviousPage
                 startCursor
-                hasNextPage
                 endCursor
             }
             repositoryCount
