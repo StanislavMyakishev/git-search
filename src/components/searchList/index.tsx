@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-client';
 import _ from 'lodash';
 import React, { memo, ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
@@ -7,14 +8,8 @@ import {
     getDocumentScrollHeight,
     getDocumentScrollTop,
 } from '../../common/helpers';
-import useSearch from '../../hooks/useSearch';
-import {
-    QuerySearchArgs,
-    Repository,
-    SearchResult,
-} from '../../schema/generated';
+import { Repository, SearchResult } from '../../schema/generated';
 import ErrorMessage from '../errorMessage';
-import Loader from '../loader';
 import RepositoryItem from '../repositoryItem';
 import SettingsToolbar from '../settingsToolbar';
 
@@ -44,24 +39,29 @@ const ContentWrapper = styled.div`
     border-radius: 3px;
 `;
 
-const SearchList = ({ query, type, first }: QuerySearchArgs): ReactElement => {
-    const { search, error, loading, loadMore, hasNextPage } = useSearch({
-        query,
-        type,
-        first,
-    });
+interface AllProps {
+    search: SearchResult;
+    hasNextPage?: boolean;
+    loading?: boolean;
+    error?: ApolloError;
+    onLoad?: () => void;
+}
 
-    const isLoadingMore = loading && search;
-    const isLoadingNewQuery = loading && !search;
-
+const SearchList = ({
+    search,
+    loading,
+    error,
+    hasNextPage,
+    onLoad,
+}: AllProps): ReactElement => {
     const scrollHandler = (): void => {
         const scrollTop = getDocumentScrollTop(),
             scrollHeight = getDocumentScrollHeight(),
             clientHeight = getClientHeight();
         const isBottomReached =
-            Math.ceil(scrollTop + clientHeight) >= scrollHeight - 400;
-        if (isBottomReached && !loading && hasNextPage && loadMore) {
-            loadMore();
+            Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+        if (isBottomReached && !loading && hasNextPage && onLoad) {
+            onLoad();
         }
     };
 
@@ -78,9 +78,9 @@ const SearchList = ({ query, type, first }: QuerySearchArgs): ReactElement => {
 
     const reposList = (data: SearchResult): ReactElement[] | null =>
         data.nodes
-            ? data.nodes.map((queryNode: Repository) => (
+            ? data.nodes.map((queryNode: Repository, index) => (
                   <RepositoryItem
-                      key={queryNode.url}
+                      key={queryNode.url + index}
                       repoName={queryNode.name}
                       repoOwner={queryNode.owner.login}
                       repoUrl={queryNode.url}
@@ -108,10 +108,11 @@ const SearchList = ({ query, type, first }: QuerySearchArgs): ReactElement => {
     return (
         <StyledWrapper>
             <ContentWrapper>
-                <SettingsToolbar repositoryCount={search.repositoryCount} />
-                {isLoadingNewQuery && <Loader />}
+                <SettingsToolbar
+                    loading={loading}
+                    repositoryCount={search.repositoryCount}
+                />
                 {reposList(search)}
-                {isLoadingMore && <Loader />}
             </ContentWrapper>
         </StyledWrapper>
     );

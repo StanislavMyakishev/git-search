@@ -3,29 +3,15 @@ import styled from 'styled-components';
 
 import loader from './assets/loader.svg';
 
-const LoaderOverlay = styled.div`
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    background-color: ${({ theme }) => theme.colors.white}};
-`;
-
-const LoaderWrapper = styled.div`
-    min-height: 128px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+const CenteredLoader = styled.img`
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 `;
 
 export default function Loader(): React.ReactElement {
-    return (
-        <LoaderOverlay>
-            <LoaderWrapper>
-                <img src={loader} alt="Loader" />
-            </LoaderWrapper>
-        </LoaderOverlay>
-    );
+    return <CenteredLoader src={loader} alt="Loader" />;
 }

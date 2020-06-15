@@ -17,34 +17,70 @@ interface UseSearch {
     hasNextPage?: boolean;
     loading?: boolean;
     error?: ApolloError;
-    loadMore?: () => Promise<ApolloQueryResult<Query>>;
+    onSearch?: (props: QuerySearchArgs) => Promise<ApolloQueryResult<Query>>;
+    onLoad?: (props: QuerySearchArgs) => Promise<ApolloQueryResult<Query>>;
 }
 
-function useSearch({ query, type, first }: QuerySearchArgs): UseSearch {
+function useSearch(props: QuerySearchArgs): UseSearch {
     const { loading, error, data, fetchMore } = useQuery(GET_SEARCH_RESULTS, {
         notifyOnNetworkStatusChange: true,
-        variables: { query, type, first },
+        variables: { ...props },
     });
 
     if (loading && !data) return { loading, search: searchLoading };
 
     if (error && !data) return { error, search: searchLoading };
 
-    const loadMore = (): Promise<ApolloQueryResult<Query>> => {
+    const onSearch = (
+        props: QuerySearchArgs,
+    ): Promise<ApolloQueryResult<Query>> => {
         return fetchMore({
             variables: {
+                ...props,
+            },
+            updateQuery: (
+                previousResult: Query,
+                { fetchMoreResult }: FetchMore,
+            ) => {
+                let newEdges = null,
+                    pageInfo = null;
+                if (fetchMoreResult) {
+                    newEdges = fetchMoreResult.search.nodes;
+                    pageInfo = fetchMoreResult.search.pageInfo;
+                }
+                return fetchMoreResult
+                    ? {
+                          search: {
+                              __typename: fetchMoreResult.search.__typename,
+                              repositoryCount:
+                                  fetchMoreResult.search.repositoryCount,
+                              nodes: [...newEdges],
+                              pageInfo,
+                          },
+                      }
+                    : previousResult;
+            },
+        });
+    };
+
+    const onLoad = (
+        props: QuerySearchArgs,
+    ): Promise<ApolloQueryResult<Query>> => {
+        return fetchMore({
+            variables: {
+                ...props,
                 cursor: data.search.pageInfo.endCursor,
             },
             updateQuery: (
                 previousResult: Query,
                 { fetchMoreResult }: FetchMore,
             ) => {
-                const newEdges = fetchMoreResult
-                    ? fetchMoreResult.search.nodes
-                    : null;
-                const pageInfo = fetchMoreResult
-                    ? fetchMoreResult.search.pageInfo
-                    : null;
+                let newEdges = null,
+                    pageInfo = null;
+                if (fetchMoreResult) {
+                    newEdges = fetchMoreResult.search.nodes;
+                    pageInfo = fetchMoreResult.search.pageInfo;
+                }
                 return newEdges
                     ? {
                           search: {
@@ -62,12 +98,14 @@ function useSearch({ query, type, first }: QuerySearchArgs): UseSearch {
             },
         });
     };
+
     return {
         search: data.search,
         hasNextPage: data.search.pageInfo.hasNextPage,
         loading,
         error,
-        loadMore,
+        onSearch,
+        onLoad,
     };
 }
 

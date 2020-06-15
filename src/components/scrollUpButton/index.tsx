@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { getDocumentScrollTop } from '../../common/helpers';
+import { getDocumentScrollTop, scrollUp } from '../../common/helpers';
 
 const StyledButton = styled.button`
     position: fixed;
@@ -27,9 +27,6 @@ const StyledButton = styled.button`
 
 export default function ScrollUpButton(): React.ReactElement {
     const [isVisible, setIsVisible] = useState(false);
-    const scrollUp = (): void => {
-        window.scrollTo(0, 0);
-    };
 
     const handleScroll = _.throttle(() => {
         const isScrolled = getDocumentScrollTop() > 40;

@@ -1,7 +1,10 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
+import Loader from '../loader';
+
 const SettingsWrapper = styled.div`
+    position: relative;
     padding: ${({ theme }) => theme.spacing.small};
     align-items: center !important;
     justify-content: space-between !important;
@@ -13,14 +16,19 @@ const SettingsWrapper = styled.div`
 `;
 
 interface SettingsToolbarProps {
+    loading?: boolean;
     repositoryCount: number;
 }
 
 const SettingsToolbar = ({
+    loading,
     repositoryCount,
 }: SettingsToolbarProps): ReactElement => {
     return (
-        <SettingsWrapper>{repositoryCount} repository results</SettingsWrapper>
+        <SettingsWrapper>
+            <span>{repositoryCount} repository results</span>
+            {loading && <Loader />}
+        </SettingsWrapper>
     );
 };
 

@@ -65,23 +65,14 @@ const CustomTextInput = styled.input`
 `;
 
 interface SearchInputProps {
-    inputValue: string;
-    updateSearchInput: (e: React.FormEvent<HTMLInputElement>) => void;
+    onSearch: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const SearchInput = ({
-    inputValue,
-    updateSearchInput,
-}: SearchInputProps): ReactElement => {
+const SearchInput = ({ onSearch }: SearchInputProps): ReactElement => {
     return (
         <InputWrapper>
             <CenterWrapper>
-                <CustomTextInput
-                    autoFocus
-                    type="search"
-                    onChange={updateSearchInput}
-                    value={inputValue}
-                />
+                <CustomTextInput autoFocus type="search" onChange={onSearch} />
             </CenterWrapper>
         </InputWrapper>
     );
