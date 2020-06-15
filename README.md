@@ -21,6 +21,28 @@ $ npm i
 
 This will install all dependencies.
 
+## Github access tokens
+
+This app requires github access tokens, which you can generate at your github profile
+
+### Where to go?
+
+Settings -> Developer settings -> Personal access tokens
+
+### Required scopes
+
+Repo, read:packages and user.
+
+###.env.local
+When you have your github access token just simply create .env.local file with
+<br/>
+*no brackets
+```text
+REACT_APP_ACCESS_TOKEN=(PLACE FOR YOUR TOKEN)
+``` 
+
+And here we go! Now you can run app scripts.
+
 ## Running the scripts
 To run the application in development mode use 
 
