@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { memo, ReactElement, useState } from 'react';
 
 import { defaultSearchParams } from '../../common/helpers';
+import InfiniteScroll from '../../components/infiniteScroll';
 import ScrollUpButton from '../../components/scrollUpButton';
 import SearchInput from '../../components/searchInput';
 import SearchList from '../../components/searchList';
@@ -46,13 +47,13 @@ const Search = (): ReactElement => {
     return (
         <>
             <SearchInput onSearch={onInputChange} />
-            <SearchList
-                search={search}
-                error={error}
+            <InfiniteScroll
                 hasNextPage={hasNextPage}
-                loading={loading}
                 onLoad={handleOnLoad}
-            />
+                loading={loading}
+            >
+                <SearchList search={search} error={error} loading={loading} />
+            </InfiniteScroll>
             <ScrollUpButton />
         </>
     );
