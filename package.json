@@ -19,6 +19,15 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.15.3",
+    "@graphql-codegen/introspection": "1.15.3",
+    "@graphql-codegen/typescript": "1.15.3",
+    "@graphql-codegen/typescript-operations": "1.15.3",
+    "@graphql-codegen/typescript-react-apollo": "1.15.3",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-create-react-app": "^3.0.1",
+    "@storybook/react": "^5.3.19",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
@@ -38,11 +47,7 @@
     "history": "^4.10.1",
     "husky": "^4.2.3",
     "prettier": "^2.0.5",
-    "react-router-dom": "^5.1.2",
-    "@graphql-codegen/typescript": "1.15.3",
-    "@graphql-codegen/typescript-operations": "1.15.3",
-    "@graphql-codegen/typescript-react-apollo": "1.15.3",
-    "@graphql-codegen/introspection": "1.15.3"
+    "react-router-dom": "^5.1.2"
   },
   "husky": {
     "hooks": {
@@ -62,7 +67,9 @@
     "precommit": "npm run prettier && npm run lint-staged && git add .",
     "prettier": "prettier --write '*/**/*.{ts,tsx,js}'",
     "lint-staged": "tsc --noEmit && eslint 'src/*/**/*.{ts,tsx,js}' --max-warnings=0 --fix",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"

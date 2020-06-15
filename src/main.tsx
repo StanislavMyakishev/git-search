@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 
 import Routes from './routes';
 import theme from './theme';
+import { GlobalStyle } from './theme/globalStyle';
 
 interface AllProps<TCache> {
     client: ApolloClient<TCache>;
@@ -22,6 +23,7 @@ const Main: React.FC<AllProps<NormalizedCacheObject>> = ({
         <ApolloProvider client={client}>
             <Router history={history}>
                 <ThemeProvider theme={theme}>
+                    <GlobalStyle />
                     <Routes />
                 </ThemeProvider>
             </Router>

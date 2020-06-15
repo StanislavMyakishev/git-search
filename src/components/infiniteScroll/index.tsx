@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { ReactElement, useEffect } from 'react';
+import React, { memo, ReactElement, useEffect } from 'react';
 
 import {
     getClientHeight,
@@ -43,4 +43,4 @@ const InfiniteScroll = ({
     return <>{children}</>;
 };
 
-export default InfiniteScroll;
+export default memo(InfiniteScroll);

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 
 import Loader from '../loader';
 import * as Styled from './styled';
@@ -20,4 +20,4 @@ const SettingsToolbar = ({
     );
 };
 
-export default SettingsToolbar;
+export default memo(SettingsToolbar);

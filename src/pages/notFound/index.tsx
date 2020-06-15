@@ -2,7 +2,7 @@ import { History, LocationState } from 'history';
 import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import Button from '../../components/button';
+import Button from '../../components/basicButton';
 import routes from '../../routes/routerConstants';
 import PagePicture from './assets/404.webp';
 
@@ -102,7 +102,7 @@ const NotFound = ({ history }: AllProps): ReactElement => {
                     <StyledHeader>404</StyledHeader>
                     <h1>Just slowly go home!</h1>
                     <h2>You saw nothing...</h2>
-                    <Button onClickHandler={handleGoToRoot}>Go back</Button>
+                    <Button onClick={handleGoToRoot}>Go back</Button>
                 </StyledContentText>
             </StyledContent>
         </StyledWrapper>

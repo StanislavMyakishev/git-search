@@ -1,5 +1,3 @@
-import './index.css';
-
 import { createBrowserHistory } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';

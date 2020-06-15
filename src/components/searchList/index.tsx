@@ -10,7 +10,7 @@ import * as Styled from './styled';
 interface AllProps {
     search: SearchResult;
     loading?: boolean;
-    error?: ApolloError;
+    error?: ApolloError | Error;
 }
 
 const SearchList = ({ search, loading, error }: AllProps): ReactElement => {

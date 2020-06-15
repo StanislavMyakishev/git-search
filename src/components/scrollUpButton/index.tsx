@@ -1,10 +1,14 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import { getDocumentScrollTop, scrollUp } from '../../common/helpers';
 import * as Styled from './styled';
 
-export default function ScrollUpButton(): React.ReactElement {
+interface AllProps {
+    forceShow?: boolean;
+}
+
+const ScrollUpButton = ({ forceShow }: AllProps): React.ReactElement => {
     const [isVisible, setIsVisible] = useState(false);
 
     const handleScroll = _.throttle(() => {
@@ -20,8 +24,13 @@ export default function ScrollUpButton(): React.ReactElement {
     }, [handleScroll]);
 
     return (
-        <Styled.ScrollUpButton onClick={scrollUp} isVisible={isVisible}>
+        <Styled.ScrollUpButton
+            onClick={scrollUp}
+            isVisible={isVisible || !!forceShow}
+        >
             &and;
         </Styled.ScrollUpButton>
     );
-}
+};
+
+export default memo(ScrollUpButton);

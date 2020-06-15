@@ -2,7 +2,7 @@ import { History } from 'history';
 import React, { memo, ReactElement } from 'react';
 import { withRouter } from 'react-router';
 
-import Button from '../button';
+import Button from '../basicButton';
 import Whops from './assets/whops.jpg';
 import * as Styled from './styled';
 
@@ -24,7 +24,7 @@ const ErrorMessage = ({ history }: AllProps): ReactElement => {
                 <h3>
                     We are working hard to fix it for you as soon as possible.
                 </h3>
-                <Button onClickHandler={handleRefreshPage}>Reload</Button>
+                <Button onClick={handleRefreshPage}>Reload</Button>
             </Styled.ErrorMessage>
         </Styled.ErrorWrapper>
     );
